@@ -1,0 +1,11 @@
+# ssh-copy-id root@SERVER_IP_ADDRESS
+# ssh root@SERVER_IP_ADDRESS
+adduser sysops
+gpasswd -a sysops wheel
+touch /home/sysops/.ssh/authorized_keys
+cat ~/.ssh/id_rsa.pub > /home/sysops/.ssh/authorized_keys
+chmod 600 /home/sysops/.ssh/authorized_keys
+chown sysops:sysops /home/sysops/.ssh/authorized_keys
+echo ‘sysops ALL=NOPASSWD: ALL’ > /etc/sudoers.d/sysops
+systemctl reload sshd
+
