@@ -1,0 +1,18 @@
+--- # Test vars in ansible
+- hosts: '{{ myhosts }}'
+  remote_user: sysops
+  become: yes
+  become_method: sudo
+  gather_facts: '{{ gather }}'
+  vars:
+    myhosts: all
+    gather: yes
+    pkg: telnet
+  tasks:
+  - name: Install the indicated software
+    yum:
+      name: '{{pkg}}'
+      state: latest
+    register: result
+  - debug: var=result
+
